@@ -1,0 +1,43 @@
+services:
+
+    test:
+        extends:
+            file: common-services.yml
+            service: php
+        container_name: test
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+            - "match-your-master.local:host-gateway"
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/app:delegated
+        networks:
+            - test-network
+
+    mysql:
+        container_name: mysql
+        extends:
+            file: common-services.yml
+            service: mysql
+        volumes:
+            - mysql:/var/lib/mysql
+            - ./.docker/mysql/init:/docker-entrypoint-initdb.d
+        networks:
+            - test-network
+
+    redis:
+        container_name: redis
+        extends:
+            file: common-services.yml
+            service: redis
+        networks:
+            - test-network
+
+networks:
+    test-network:
+        external: true
+
+volumes:
+    mysql:
+        driver: local
