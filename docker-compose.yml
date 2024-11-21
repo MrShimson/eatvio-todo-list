@@ -7,7 +7,6 @@ services:
         container_name: test
         extra_hosts:
             - "host.docker.internal:host-gateway"
-            - "match-your-master.local:host-gateway"
         ports:
             - "8000:8000"
         volumes:
