@@ -9,7 +9,7 @@ services:
             - "host.docker.internal:host-gateway"
             - "match-your-master.local:host-gateway"
         ports:
-            - "80:80"
+            - "8000:8000"
         volumes:
             - ./:/app:delegated
         networks:

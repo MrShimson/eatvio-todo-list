@@ -10,6 +10,8 @@ services:
                 - DOCKER_UID_GID=${DOCKER_UID_GID}
                 - ENABLE_XDEBUG=${ENABLE_XDEBUG}
                 - APP_DIR=${APP_DIR}
+        environment:
+            PHP_IDE_CONFIG: "serverName=${APP_DOMAIN_NAME}"
         restart: unless-stopped
         tty: true
 
