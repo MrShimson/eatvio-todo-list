@@ -22,8 +22,6 @@
                 </div>
             </div>
         </header>
-        <!-- Modal -->
-        <div class="modal-content"></div>
         <div class="row justify-content-center"></div>
     </body>
 </html>

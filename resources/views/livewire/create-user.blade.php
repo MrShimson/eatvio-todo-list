@@ -3,13 +3,13 @@
     <div x-data="{ open: false }">
         <div @click="open = ! open">Sign-up</div>
 
-        @teleport('.modal-content')
+        @teleport('body')
         <div x-show="open">
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="sign-up" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sign-up-label" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Sign Up</h5>
+                            <h5 class="modal-title" id="sign-up-label">Sign Up</h5>
                             <button @click="open = false" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
