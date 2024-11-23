@@ -46,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function hasPrivateStatus(): bool
+    {
+        return $this->getAttribute('status') === 'private';
+    }
 }
