@@ -12,6 +12,8 @@ class ListUsers extends Component
 {
     use WithPagination;
 
+    protected $listeners = ['status-changed' => 'refresh'];
+
     public function render()
     {
         $users = User::where('status', 'public')->paginate(5);

@@ -18,6 +18,7 @@ class ChangeStatus extends Component
         }
 
         $user->save();
+        $this->dispatch('status-changed');
     }
 
     public function render()
