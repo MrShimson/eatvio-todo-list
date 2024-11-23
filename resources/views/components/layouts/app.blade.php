@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="vw-auto vh-auto overflow-hidden" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="vw-100 vh-100 overflow-hidden" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,12 +14,32 @@
             <div class="container-fluid">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+                        <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
+                        <li><a href="/users" class="nav-link px-2 text-light">Users</a></li>
+                        @auth
+                            <li><a href="{{-- TODO: add link to My Todo Lists --}}" class="nav-link px-2 text-light">My Todo Lists</a></li>
+                        @endauth
                     </ul>
-                    {{ $slot }}
+
                 </div>
             </div>
         </header>
+
+        <main class="my-3">
+            <div class="row justify-content-start mb-3">
+                <div class="col-5 px-5 w-25">
+                    <h1 class="mb-0">{{ $title ?? 'Page Header'}}</h1>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row justify-content-center mt-3">
+                <div class="col-4 border border-2 rounded-3 m-5 p-5">
+                    {{ $slot }}
+                </div>
+            </div>
+        </main>
 
         <!-- SignIn Modal -->
         <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
@@ -47,4 +67,48 @@
             </div>
         </div>
     </body>
+
+    @livewireScripts
+    <script>
+        let root = document.querySelector('[drag-root]')
+        root.querySelectorAll('[drag-item]').forEach(el => {
+            el.addEventListener('dragstart', e => {
+                e.target.setAttribute('dragging', true)
+            })
+
+            el.addEventListener('dragenter', e => {
+                e.target.classList.add('bg-secondary')
+
+                e.preventDefault()
+            })
+
+            el.addEventListener('dragover', e => {
+                e.preventDefault()
+            })
+
+            el.addEventListener('dragleave', e => {
+                e.target.classList.remove('bg-secondary')
+            })
+
+            el.addEventListener('dragend', e => {
+                e.target.removeAttribute('dragging')
+            })
+
+            el.addEventListener('drop', e => {
+                e.target.classList.remove('bg-secondary')
+
+                let draggingEl = root.querySelector('[dragging]')
+                e.target.before(draggingEl)
+
+                let component = Livewire.find(
+                    e.target.closest('[wire\\:id]').getAttribute('wire:id')
+                )
+
+                let method = root.getAttribute('drag-root')
+                let orderIds = Array.from(root.querySelectorAll('[drag-item]')).map(itemEl => itemEl.getAttribute('drag-item'))
+
+                component.call(method, orderIds)
+            })
+        })
+    </script>
 </html>
