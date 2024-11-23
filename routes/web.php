@@ -9,6 +9,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/auth', Auth::class);
 Route::get('/users',ListUsers::class);
 Route::get('/todo-lists', TodoList::class);

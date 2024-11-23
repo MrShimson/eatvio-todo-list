@@ -12,7 +12,7 @@ class Auth extends Component
 
         session()->invalidate();
 
-        $this->redirect('/auth');
+        $this->redirect('/');
     }
     public function render()
     {

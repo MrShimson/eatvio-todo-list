@@ -20,7 +20,7 @@
                             <li><a href="{{-- TODO: add link to My Todo Lists --}}" class="nav-link px-2 text-light">My Todo Lists</a></li>
                         @endauth
                     </ul>
-
+                    <livewire:auth/>
                 </div>
             </div>
         </header>

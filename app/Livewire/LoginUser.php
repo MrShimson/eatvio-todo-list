@@ -32,7 +32,7 @@ class LoginUser extends Component
 
             session()->regenerate();
 
-            $this->redirect('/auth');
+            $this->redirect('/');
         }
     }
 
