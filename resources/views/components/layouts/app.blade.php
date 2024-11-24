@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html class="vw-100 vh-100 overflow-hidden" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>{{ $title ?? 'Page Title' }}</title>
+
+        <style>
+            #menu {
+                position: absolute;
+                overflow-y: scroll;
+                top: inherit;
+                height: 89.9438%;
+            }
+        </style>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -17,7 +26,7 @@
                         <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
                         <li><a href="/users" class="nav-link px-2 text-light">Users</a></li>
                         @auth
-                            <li><a href="{{-- TODO: add link to My Todo Lists --}}" class="nav-link px-2 text-light">My Todo Lists</a></li>
+                            <li><a href="{{-- TODO: add link to Todo List Dashboard --}}" class="nav-link px-2 text-light">Dashboard</a></li>
                         @endauth
                     </ul>
                     <livewire:auth/>
@@ -25,20 +34,21 @@
             </div>
         </header>
 
-        <main class="my-3">
-            <div class="row justify-content-start mb-3">
-                <div class="col-5 px-5 w-25">
-                    <h1 class="mb-0">{{ $title ?? 'Page Header'}}</h1>
-                </div>
-            </div>
 
-            <hr>
-
-            <div class="row justify-content-center mt-3">
-                <div class="col-4 border border-2 rounded-3 m-5 p-5">
+        <main class="container-fluid">
+            <div class="row">
+                <div id="menu" class="col-2 px-2 pt-3 pb-1 border-end border-2">
                     {{ $slot }}
                 </div>
+                <div id="content" class="col-8 mx-auto">
+                    <p class="text-center">Ровное</p>
+                </div>
             </div>
+{{--            <div class="row justify-content-center mt-3">--}}
+{{--                <div class="col-4 border border-2 rounded-3 m-5 p-5">--}}
+{{--                    --}}
+{{--                </div>--}}
+{{--            </div>--}}
         </main>
 
         @livewireScripts

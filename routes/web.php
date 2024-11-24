@@ -1,8 +1,7 @@
 <?php
 
-use App\Livewire\Auth;
 use App\Livewire\ListUsers;
-use App\Livewire\TodoList;
+use App\Livewire\TodoListDashboard;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,4 +9,4 @@ Route::get('/', function () {
 });
 
 Route::get('/users',ListUsers::class);
-Route::get('/todo-lists', TodoList::class);
+Route::get('/dashboard', TodoListDashboard::class);
