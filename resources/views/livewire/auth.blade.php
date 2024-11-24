@@ -16,7 +16,9 @@
                 <li>
                     <livewire:change-status/>
                 </li>
-                <li><button class="dropdown-item p-2" type="button">Change password</button></li>
+                <li>
+                    <livewire:change-password/>
+                </li>
                 <li><hr class="dropdown-divider m-0"></li>
                 <li><button wire:click="logout" class="dropdown-item p-2" type="button">Sign Out</button></li>
             </ul>
