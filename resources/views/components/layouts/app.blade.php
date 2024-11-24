@@ -41,74 +41,48 @@
             </div>
         </main>
 
-        <!-- SignIn Modal -->
-        <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="signInModalLabel">Sign In</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div id="signInModalBody" class="modal-body"></div>
-                </div>
-            </div>
-        </div>
+        @livewireScripts
+        <script>
+            let root = document.querySelector('[drag-root]')
+            root.querySelectorAll('[drag-item]').forEach(el => {
+                el.addEventListener('dragstart', e => {
+                    e.target.setAttribute('dragging', true)
+                })
 
-        <!-- SignUp Modal -->
-        <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div id="signUpModalBody" class="modal-body"></div>
-                </div>
-            </div>
-        </div>
+                el.addEventListener('dragenter', e => {
+                    e.target.classList.add('bg-secondary')
+
+                    e.preventDefault()
+                })
+
+                el.addEventListener('dragover', e => {
+                    e.preventDefault()
+                })
+
+                el.addEventListener('dragleave', e => {
+                    e.target.classList.remove('bg-secondary')
+                })
+
+                el.addEventListener('dragend', e => {
+                    e.target.removeAttribute('dragging')
+                })
+
+                el.addEventListener('drop', e => {
+                    e.target.classList.remove('bg-secondary')
+
+                    let draggingEl = root.querySelector('[dragging]')
+                    e.target.before(draggingEl)
+
+                    let component = Livewire.find(
+                        e.target.closest('[wire\\:id]').getAttribute('wire:id')
+                    )
+
+                    let method = root.getAttribute('drag-root')
+                    let orderIds = Array.from(root.querySelectorAll('[drag-item]')).map(itemEl => itemEl.getAttribute('drag-item'))
+
+                    component.call(method, orderIds)
+                })
+            })
+        </script>
     </body>
-
-    @livewireScripts
-    <script>
-        let root = document.querySelector('[drag-root]')
-        root.querySelectorAll('[drag-item]').forEach(el => {
-            el.addEventListener('dragstart', e => {
-                e.target.setAttribute('dragging', true)
-            })
-
-            el.addEventListener('dragenter', e => {
-                e.target.classList.add('bg-secondary')
-
-                e.preventDefault()
-            })
-
-            el.addEventListener('dragover', e => {
-                e.preventDefault()
-            })
-
-            el.addEventListener('dragleave', e => {
-                e.target.classList.remove('bg-secondary')
-            })
-
-            el.addEventListener('dragend', e => {
-                e.target.removeAttribute('dragging')
-            })
-
-            el.addEventListener('drop', e => {
-                e.target.classList.remove('bg-secondary')
-
-                let draggingEl = root.querySelector('[dragging]')
-                e.target.before(draggingEl)
-
-                let component = Livewire.find(
-                    e.target.closest('[wire\\:id]').getAttribute('wire:id')
-                )
-
-                let method = root.getAttribute('drag-root')
-                let orderIds = Array.from(root.querySelectorAll('[drag-item]')).map(itemEl => itemEl.getAttribute('drag-item'))
-
-                component.call(method, orderIds)
-            })
-        })
-    </script>
 </html>

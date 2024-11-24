@@ -48,7 +48,7 @@ class CreateUser extends Component
         ];
     }
 
-    public function save()
+    public function createUser()
     {
         $this->validate();
 
