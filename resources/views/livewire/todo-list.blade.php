@@ -2,9 +2,6 @@
     <ul class="list-group" drag-root="reorderTodos">
         @foreach($todos as $todo)
             <livewire:todo :todo="$todo" :key="$todo['id']" />
-            <a wire:click.prevent="deleteTodo($todo['id'])" href="#" class="d-inline text-decoration-none">
-                <img style="width: 32px; height: 32px;" src="https://img.icons8.com/?size=100&id=G3ke6AwujrRv&format=png&color=000000" alt="Delete icon">
-            </a>
         @endforeach
     </ul>
 </div>
