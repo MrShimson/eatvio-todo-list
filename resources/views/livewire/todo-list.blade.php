@@ -1,10 +1,10 @@
 <div>
-    <h3 class="mb-3"> {{ $name }}</h3>
-    <ul class="list-group" drag-root="reorder">
+    <ul class="list-group" drag-root="reorderTodos">
         @foreach($todos as $todo)
-            <li wire:key="{{ $todo['id'] }}" draggable="true" drag-item="{{ $todo['id'] }}" class="list-group-item my-1 border border-2 rounded-3" >
-                {{ $todo['name'] }}
-            </li>
+            <livewire:todo :todo="$todo" :key="$todo['id']" />
+            <a wire:click.prevent="deleteTodo($todo['id'])" href="#" class="d-inline text-decoration-none">
+                <img style="width: 32px; height: 32px;" src="https://img.icons8.com/?size=100&id=G3ke6AwujrRv&format=png&color=000000" alt="Delete icon">
+            </a>
         @endforeach
     </ul>
 </div>
