@@ -13,6 +13,15 @@
                 top: inherit;
                 height: 89.9438%;
             }
+            .no-focus:focus {
+                outline: none;
+            }
+            .bg-done {
+                background-color: #ADEBB3;
+            }
+            .bg-cancel {
+                background-color: #FFA0A1;
+            }
         </style>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -36,14 +45,7 @@
 
 
         <main class="container-fluid">
-            <div class="row">
-                <div id="menu" class="col-2 px-2 pt-3 pb-1 border-end border-2">
-                    {{ $slot }}
-                </div>
-                <div id="content" class="col-8 mx-auto">
-                    <p class="text-center">Ровное</p>
-                </div>
-            </div>
+            {{ $slot }}
 {{--            <div class="row justify-content-center mt-3">--}}
 {{--                <div class="col-4 border border-2 rounded-3 m-5 p-5">--}}
 {{--                    --}}

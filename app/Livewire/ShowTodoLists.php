@@ -25,7 +25,7 @@ class ShowTodoLists extends Component
 
     public function getTodoLists()
     {
-        $todoListsIds = $this->getAllUserTodoListsIds();
+        $todoListsIds  = $this->getAllUserTodoListsIds();
         $isCurrentUser = Auth::user()->getAuthIdentifier() === $this->userId;
 
         $query = TodoList::whereIn('id', $todoListsIds);
@@ -34,7 +34,10 @@ class ShowTodoLists extends Component
             $query->where('status', 'public');
         }
 
-        return $query->get();
+        $todoLists = $query->get();
+        $this->dispatch('todo-lists-get', $todoLists);
+
+        return $todoLists;
     }
 
     private function getAllUserTodoListsIds()
