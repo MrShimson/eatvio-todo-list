@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
         do {
             User::create([
-                'name'     => 'Test User',
+                'name'     => "Test User {$userId}",
                 'email'    => "test{$userId}@example.com",
                 'password' => 'Qwe12345',
                 'status'   => 'public',

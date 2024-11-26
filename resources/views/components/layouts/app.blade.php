@@ -46,11 +46,6 @@
 
         <main class="container-fluid">
             {{ $slot }}
-{{--            <div class="row justify-content-center mt-3">--}}
-{{--                <div class="col-4 border border-2 rounded-3 m-5 p-5">--}}
-{{--                    --}}
-{{--                </div>--}}
-{{--            </div>--}}
         </main>
 
         @livewireScripts

@@ -31,8 +31,6 @@ class LoginUser extends Component
         if (Auth::attempt($this->only(['email', 'password']), $this->remember_me)) {
 
             session()->regenerate();
-
-            $this->redirect('/');
         }
     }
 
