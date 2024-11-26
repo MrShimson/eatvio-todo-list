@@ -35,7 +35,7 @@
                         <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
                         <li><a href="/users" class="nav-link px-2 text-light">Users</a></li>
                         @auth
-                            <li><a href="{{-- TODO: add link to Todo List Dashboard --}}" class="nav-link px-2 text-light">Dashboard</a></li>
+                            <li><a href="/dashboard" class="nav-link px-2 text-light">Dashboard</a></li>
                         @endauth
                     </ul>
                     <livewire:auth/>
