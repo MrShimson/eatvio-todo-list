@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('status');
             $table->json( 'todos')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

@@ -19,6 +19,8 @@ class TodoListDashboard extends Component
 
     protected $listeners = [
         'set-current-todo-list' => 'setTodoListById',
+        'add-todo-list'         => 'addTodoList',
+        'delete-todo-list'      => 'deleteTodoListById',
     ];
 
     public function mount()
@@ -33,6 +35,30 @@ class TodoListDashboard extends Component
         $this->currentTodoList = collect($this->todoLists)->where('id', $id)->first();
     }
 
+    public function addTodoList()
+    {
+        $newTodoList = TodoList::create([
+            'name'   => 'New Todo List',
+            'status' => 'public',
+            'todos'  => [],
+        ]);
+
+        $userId = Auth::user()->getAuthIdentifier();
+
+        DB::table('users_todo_lists')->insert([
+            'user_id'      => $userId,
+            'todo_list_id' => $newTodoList->id,
+        ]);
+
+        $this->todoLists = $this->getAllUserTodoLists();
+    }
+
+    public function deleteTodoListById(string $id)
+    {
+        TodoList::find($id)->delete();
+        $this->todoLists = $this->getAllUserTodoLists();
+    }
+
     private function getAllUserTodoLists()
     {
         $userId = Auth::user()->getAuthIdentifier();
@@ -44,7 +70,10 @@ class TodoListDashboard extends Component
             ->toArray();
         ;
 
-        return TodoList::whereIn('id', $userTodoListsIds)->get()->all();
+        return TodoList::whereIn('id', $userTodoListsIds)
+            ->whereNull('deleted_at')
+            ->get()
+            ->all();
     }
 
     public function render()

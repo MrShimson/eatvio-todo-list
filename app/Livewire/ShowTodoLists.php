@@ -19,6 +19,16 @@ class ShowTodoLists extends Component
         $this->dispatch('set-current-todo-list', $todoListId);
     }
 
+    public function addTodoList()
+    {
+        $this->dispatch('add-todo-list');
+    }
+
+    public function deleteTodoList(string $todoListId)
+    {
+        $this->dispatch('delete-todo-list', $todoListId);
+    }
+
     public function render()
     {
         return view('livewire.show-todo-lists');
