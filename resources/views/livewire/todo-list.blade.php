@@ -1,8 +1,11 @@
 <div>
-    <ul class="list-group" drag-root="reorderTodos">
+    <ul class="list-group mt-1" drag-root="reorderTodos">
         @foreach($todos as $todo)
             <livewire:todo :todo="$todo" :key="$todo['id']" />
         @endforeach
+        <li class="list-group-item border-0 rounded-3 p-1 mx-auto">
+            <button wire:click="addTodo" class="btn btn-light border rounded-3" type="button">Add Todo</button>
+        </li>
     </ul>
 </div>
 @push('livewire-scripts')
@@ -14,7 +17,7 @@
             })
 
             el.addEventListener('dragenter', e => {
-                e.target.classList.add('bg-secondary')
+                e.target.classList.add('bg-light')
 
                 e.preventDefault()
             })
@@ -24,7 +27,7 @@
             })
 
             el.addEventListener('dragleave', e => {
-                e.target.classList.remove('bg-secondary')
+                e.target.classList.remove('bg-light')
             })
 
             el.addEventListener('dragend', e => {
@@ -32,7 +35,7 @@
             })
 
             el.addEventListener('drop', e => {
-                e.target.classList.remove('bg-secondary')
+                e.target.classList.remove('bg-light')
 
                 let draggingEl = root.querySelector('[dragging]')
                 e.target.before(draggingEl)

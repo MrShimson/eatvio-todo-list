@@ -18,10 +18,6 @@ class Todo extends Component
         $this->bgColorClass = $this->getBgColorClassByStatus($this->todo['status']);
     }
 
-    public function rendering($view, $data)
-    {
-        return;
-    }
     public function changeName()
     {
         $this->todo['name'] = $this->name;

@@ -2,17 +2,18 @@
 
 namespace App\Livewire;
 
-use App\Models\TodoList as TDList;
+use Livewire\Attributes\Modelable;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title('Todo List')]
 class TodoList extends Component
 {
-    public TDlist $todoList;
-    public string $name;
-    public string $status;
-    public array  $todos;
+    #[Modelable]
+    public ?\App\Models\TodoList $todoList;
+    public ?string $name;
+    public ?string $status;
+    public ?array $todos;
 
     protected $listeners = [
         'todo-changed' => 'updateTodo',
@@ -21,14 +22,9 @@ class TodoList extends Component
 
     public function boot()
     {
-        $this->name   = $this->todoList->getAttribute('name');
-        $this->status = $this->todoList->getAttribute('status');
-        $this->todos  = $this->todoList->getAttribute('todos');
-    }
-
-    public function rendering($view, $data)
-    {
-        return;
+        $this->name   = $this->todoList?->getAttribute('name');
+        $this->status = $this->todoList?->getAttribute('status');
+        $this->todos  = $this->todoList?->getAttribute('todos') ?? [];
     }
 
     public function changeTodoListName()
@@ -48,16 +44,12 @@ class TodoList extends Component
         $id = collect($this->todos)->max('id') + 1;
 
         $this->todos[] = [
-            'id'   => $id,
-            'name' => '',
+            'id'         => $id,
+            'name'       => 'New Todo',
+            'visibility' => 'public',
+            'status'     => 'in_progress',
         ];
-    }
-
-    public function reorderTodos($order)
-    {
-        $this->todos = collect($order)->map(function ($id) {
-            return collect($this->todos)->where('id', (int)$id)->first();
-        })->toArray();
+        $this->saveTodos();
     }
 
     public function updateTodo(array $todo)
@@ -67,16 +59,23 @@ class TodoList extends Component
         });
 
         $this->todos = collect($this->todos)->replace([$index => $todo])->all();
-        $this->save();
+        $this->saveTodos();
     }
 
     public function deleteTodo(int $todoId)
     {
         $this->todos = collect($this->todos)->where('id', '!==', $todoId)->all();
-        $this->save();
+        $this->saveTodos();
     }
 
-    public function save()
+    public function reorderTodos($order)
+    {
+        $this->todos = collect($order)->map(function ($id) {
+            return collect($this->todos)->where('id', (int)$id)->first();
+        })->toArray();
+    }
+
+    public function saveTodos()
     {
         $this->todoList->setAttribute('todos', $this->todos);
         $this->todoList->save();
