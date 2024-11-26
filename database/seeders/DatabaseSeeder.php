@@ -15,24 +15,52 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 3; $i <= 3; $i++) {
-            User::factory()->create([
+        $userId     = 1;
+        $todoListId = 1;
+
+        do {
+            User::create([
                 'name'     => 'Test User',
-                'email'    => "test{$i}@example.com",
+                'email'    => "test{$userId}@example.com",
                 'password' => 'Qwe12345',
                 'status'   => 'public',
             ]);
-            for ($io = 7; $io <= 9; $io++) {
+
+            for ($i = 0; $i < 5; $i++) {
+                $todoSeeder = function () {
+                    $todos = [];
+
+                    for ($i = 1; $i <= 5; $i++) {
+                        $todos[] = [
+                            'id'         => $i,
+                            'name'       => "Test Todo {$i}",
+                            'visibility' => 'public',
+                            'status'     => 'in_progress',
+                        ];
+                    }
+
+                    return $todos;
+                };
+
                 TodoList::create([
-                    'name'     => "Test List {$io}",
-                    'status'   => 'public',
+                    'name'   => "Test List {$todoListId}",
+                    'status' => 'public',
+                    'todos'  => [
+                        ...$todoSeeder(),
+                    ]
                 ]);
+
                 DB::table('users_todo_lists')->insert([
-                    'user_id' => $i,
-                    'todo_list_id' => $io,
+                    'user_id' => $userId,
+                    'todo_list_id' => $todoListId,
                 ]);
+
+                $todoListId++;
+
             }
 
-        }
+            $userId++;
+
+        } while ($userId <= 10);
     }
 }
