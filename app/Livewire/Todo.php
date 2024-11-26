@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Livewire;
-
-use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class Todo extends Component

@@ -1,7 +1,7 @@
 <div>
     <ul class="list-group mt-1" drag-root="reorderTodos">
         @foreach($todos as $todo)
-            <livewire:todo :todo="$todo" :key="$todo['id']" />
+            <livewire:todo :todo="$todo" :key="rand()" />
         @endforeach
         <li class="list-group-item border-0 rounded-3 p-1 mx-auto">
             <button wire:click="addTodo" class="btn btn-light border rounded-3" type="button">Add Todo</button>
