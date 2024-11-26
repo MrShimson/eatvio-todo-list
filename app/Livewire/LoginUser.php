@@ -31,7 +31,12 @@ class LoginUser extends Component
         if (Auth::attempt($this->only(['email', 'password']), $this->remember_me)) {
 
             session()->regenerate();
+
+            $this->redirect('/dashboard');
         }
+
+        $this->addError('email', 'Wrong email or password');
+        $this->addError('password', 'Wrong email or password');
     }
 
     public function render()
