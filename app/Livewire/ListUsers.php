@@ -45,6 +45,7 @@ class ListUsers extends Component
             ])
             ->where('users.status', 'public')
             ->where('todo_lists.status', 'public')
+            ->whereNull('todo_lists.deleted_at')
             ->get()
         ;
 

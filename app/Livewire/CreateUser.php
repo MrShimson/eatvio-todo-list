@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use \Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -52,11 +53,13 @@ class CreateUser extends Component
     {
         $this->validate();
 
-        User::create(
+        $user = User::create(
             $this->only(['name', 'email', 'password', 'status']),
         );
 
-        return $this->redirect('/');
+        Auth::login($user);
+
+        $this->redirect('/users');
     }
 
     public function render()

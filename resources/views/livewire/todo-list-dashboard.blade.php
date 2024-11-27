@@ -3,6 +3,8 @@
         <livewire:show-todo-lists wire:model="todoLists" />
     </div>
     <div id="content" class="col-5 mx-auto mt-3">
-        <livewire:todo-list wire:model="currentTodoList" />
+        @if(!empty($todoLists))
+            <livewire:todo-list wire:model="currentTodoList" />
+        @endif
     </div>
 </div>

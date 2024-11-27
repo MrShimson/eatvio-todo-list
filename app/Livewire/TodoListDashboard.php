@@ -15,7 +15,7 @@ class TodoListDashboard extends Component
      * @var TodoList[]
      */
     public array $todoLists;
-    public TodoList $currentTodoList;
+    public ?TodoList $currentTodoList;
 
     protected $listeners = [
         'set-current-todo-list' => 'setTodoListById',
@@ -23,14 +23,14 @@ class TodoListDashboard extends Component
         'delete-todo-list'      => 'deleteTodoListById',
     ];
 
-    public function mount()
+    public function boot()
     {
         $this->todoLists = $this->getAllUserTodoLists();
         $id = collect($this->todoLists)->min('id');
         $this->setTodoListById($id);
     }
 
-    public function setTodoListById(string $id)
+    public function setTodoListById(?string $id)
     {
         $this->currentTodoList = collect($this->todoLists)->where('id', $id)->first();
     }
