@@ -11,7 +11,7 @@
                             <div class="list-group">
                                 @if (isset($usersTodoLists[$user->id]))
                                     @foreach($usersTodoLists[$user->id] as $todoList)
-                                        <a href="/todo-lists/{{ $todoList['id'] }}" class="list-group-item list-group-item-action text-decoration-none text-dark">
+                                        <a href="/todo-lists/{{ $todoList['id'] }}" class="list-group-item list-group-item-action text-decoration-none text-dark text-center">
                                             {{ $todoList['name'] }}
                                         </a>
                                     @endforeach
